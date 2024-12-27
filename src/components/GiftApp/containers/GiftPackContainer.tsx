@@ -59,19 +59,29 @@ const GiftPackContainer = ({
                 onClick={() => onItemClick?.(item)}
                 className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition-shadow flex items-center gap-4"
               >
-                <div className={`${isSecondaryPack ? 'w-16 h-16' : 'w-24 h-24'} rounded-md overflow-hidden bg-gray-50 flex-shrink-0`}>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-contain p-2"
-                  />
+                <div className="relative">
+                  <div className={`${isSecondaryPack ? 'w-16 h-16' : 'w-24 h-24'} rounded-md overflow-hidden bg-gray-50 flex-shrink-0`}>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                  {item.size && (
+                    <div className={`
+                      absolute -top-2 -right-2 
+                      ${isSecondaryPack ? 'text-xs px-1.5 py-0.5' : 'text-sm px-2 py-1'} 
+                      bg-[#6D0201] text-white rounded-full font-medium
+                    `}>
+                      {item.size}
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className={`${isSecondaryPack ? 'text-base' : 'text-lg'} font-medium text-gray-900 truncate`}>
                     {item.name}
                   </div>
                   <div className={`${isSecondaryPack ? 'text-xs' : 'text-sm'} text-gray-600 mt-2`}>
-                    {item.size && <span className="mr-3">Taille: {item.size}</span>}
                     {item.color && <span>Couleur: {item.color}</span>}
                   </div>
                   <div className={`${isSecondaryPack ? 'text-sm' : 'text-base'} text-[#6D0201] font-medium mt-2`}>
