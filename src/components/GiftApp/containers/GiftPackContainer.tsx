@@ -28,6 +28,8 @@ const GiftPackContainer = ({
     }
   };
 
+  const isSecondaryPack = containerIndex > 0;
+
   return (
     <div className={className}>
       <div className="p-4 h-full flex flex-col">
@@ -37,7 +39,6 @@ const GiftPackContainer = ({
           onDragOver={handleDragOver}
           className="relative flex-1 flex items-center justify-center"
         >
-          {/* Background placeholder */}
           {!item && (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-sm text-gray-500 pointer-events-none">
               <MoveDown className="w-8 h-8 mb-2 text-gray-400" />
@@ -48,7 +49,6 @@ const GiftPackContainer = ({
             </div>
           )}
 
-          {/* Item display */}
           {item && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -59,7 +59,7 @@ const GiftPackContainer = ({
                 onClick={() => onItemClick?.(item)}
                 className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition-shadow flex items-center gap-4"
               >
-                <div className="w-24 h-24 rounded-md overflow-hidden bg-gray-50 flex-shrink-0">
+                <div className={`${isSecondaryPack ? 'w-16 h-16' : 'w-24 h-24'} rounded-md overflow-hidden bg-gray-50 flex-shrink-0`}>
                   <img
                     src={item.image}
                     alt={item.name}
@@ -67,14 +67,14 @@ const GiftPackContainer = ({
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-medium text-gray-900 truncate">
+                  <div className={`${isSecondaryPack ? 'text-base' : 'text-lg'} font-medium text-gray-900 truncate`}>
                     {item.name}
                   </div>
-                  <div className="text-sm text-gray-600 mt-2">
+                  <div className={`${isSecondaryPack ? 'text-xs' : 'text-sm'} text-gray-600 mt-2`}>
                     {item.size && <span className="mr-3">Taille: {item.size}</span>}
                     {item.color && <span>Couleur: {item.color}</span>}
                   </div>
-                  <div className="text-[#6D0201] font-medium mt-2">
+                  <div className={`${isSecondaryPack ? 'text-sm' : 'text-base'} text-[#6D0201] font-medium mt-2`}>
                     {item.price.toFixed(2)} TND
                   </div>
                 </div>
