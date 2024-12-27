@@ -71,23 +71,39 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
   };
 
   const packContainers = [
-    { title: "Pack Principal", item: items[0] },
-    { title: "Pack Secondaire 1", item: items[1] },
-    { title: "Pack Secondaire 2", item: items[2] }
+    { title: "Pack Principal", item: items[0], className: "col-span-full mb-4" },
+    { title: "Pack Secondaire 1", item: items[1], className: "col-span-1" },
+    { title: "Pack Secondaire 2", item: items[2], className: "col-span-1" }
   ];
 
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px]">
-        {packContainers.map((pack, index) => (
+    <div className="space-y-4">
+      {/* Main Pack Container */}
+      <div className="grid grid-cols-1 gap-4">
+        <GiftPackContainer
+          key={0}
+          title={packContainers[0].title}
+          item={packContainers[0].item}
+          onDrop={handleDrop(0)}
+          onItemClick={handleProductClick}
+          onRemoveItem={handleRemoveItem}
+          containerIndex={0}
+          className="h-[300px] bg-white/95 backdrop-blur-sm shadow-xl rounded-xl border border-gray-100"
+        />
+      </div>
+
+      {/* Secondary Packs Container */}
+      <div className="grid grid-cols-2 gap-4">
+        {packContainers.slice(1).map((pack, index) => (
           <GiftPackContainer
-            key={index}
+            key={index + 1}
             title={pack.title}
             item={pack.item}
-            onDrop={handleDrop(index)}
+            onDrop={handleDrop(index + 1)}
             onItemClick={handleProductClick}
             onRemoveItem={handleRemoveItem}
-            containerIndex={index}
+            containerIndex={index + 1}
+            className="h-[250px] bg-white/95 backdrop-blur-sm shadow-xl rounded-xl border border-gray-100"
           />
         ))}
       </div>
@@ -108,7 +124,7 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
         onOpenChange={setShowProductModal}
         product={selectedProduct}
       />
-    </>
+    </div>
   );
 };
 
