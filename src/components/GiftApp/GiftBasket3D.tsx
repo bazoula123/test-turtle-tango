@@ -23,6 +23,16 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
 
   const handleDrop = (containerId: number) => (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    // Check if the container already has an item
+    if (items[containerId]) {
+      toast({
+        title: "Emplacement occupé",
+        description: "Veuillez d'abord retirer l'article existant",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const item = JSON.parse(e.dataTransfer.getData('product'));
     setDroppedItem(item);
     setTargetContainer(containerId);
